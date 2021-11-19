@@ -1,0 +1,176 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [],
+  "impls": {
+    "562ec1335899c3b3c30714885b9361e87ec2161a187404460a4643afcf6e31a7": {
+      "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "txHash": "0x69d79581b69c205d7fae78a1625a1616307de98747a3eaf6bb522595dd074831",
+      "layout": {
+        "storage": [
+          {
+            "contract": "CTokenStorage",
+            "label": "_notEntered",
+            "type": "t_bool",
+            "src": "contracts\\CTokenInterfaces.sol:11"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "name",
+            "type": "t_string_storage",
+            "src": "contracts\\CTokenInterfaces.sol:16"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "symbol",
+            "type": "t_string_storage",
+            "src": "contracts\\CTokenInterfaces.sol:21"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "decimals",
+            "type": "t_uint8",
+            "src": "contracts\\CTokenInterfaces.sol:26"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "admin",
+            "type": "t_address_payable",
+            "src": "contracts\\CTokenInterfaces.sol:42"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "pendingAdmin",
+            "type": "t_address_payable",
+            "src": "contracts\\CTokenInterfaces.sol:47"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "comptroller",
+            "type": "t_contract(ComptrollerInterface)10229",
+            "src": "contracts\\CTokenInterfaces.sol:52"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "interestRateModel",
+            "type": "t_contract(InterestRateModel)12041",
+            "src": "contracts\\CTokenInterfaces.sol:57"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "initialExchangeRateMantissa",
+            "type": "t_uint256",
+            "src": "contracts\\CTokenInterfaces.sol:62"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "reserveFactorMantissa",
+            "type": "t_uint256",
+            "src": "contracts\\CTokenInterfaces.sol:67"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "accrualBlockNumber",
+            "type": "t_uint256",
+            "src": "contracts\\CTokenInterfaces.sol:72"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "borrowIndex",
+            "type": "t_uint256",
+            "src": "contracts\\CTokenInterfaces.sol:77"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "totalBorrows",
+            "type": "t_uint256",
+            "src": "contracts\\CTokenInterfaces.sol:82"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "totalReserves",
+            "type": "t_uint256",
+            "src": "contracts\\CTokenInterfaces.sol:87"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "totalSupply",
+            "type": "t_uint256",
+            "src": "contracts\\CTokenInterfaces.sol:92"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "accountTokens",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "contracts\\CTokenInterfaces.sol:97"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "transferAllowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "contracts\\CTokenInterfaces.sol:102"
+          },
+          {
+            "contract": "CTokenStorage",
+            "label": "accountBorrows",
+            "type": "t_mapping(t_address,t_struct(BorrowSnapshot)5737_storage)",
+            "src": "contracts\\CTokenInterfaces.sol:117"
+          },
+          {
+            "contract": "CErc20Storage",
+            "label": "underlying",
+            "type": "t_address",
+            "src": "contracts\\CTokenInterfaces.sol:254"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_address_payable": {
+            "label": "address payable"
+          },
+          "t_contract(ComptrollerInterface)10229": {
+            "label": "contract ComptrollerInterface"
+          },
+          "t_contract(InterestRateModel)12041": {
+            "label": "contract InterestRateModel"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))"
+          },
+          "t_mapping(t_address,t_struct(BorrowSnapshot)5737_storage)": {
+            "label": "mapping(address => struct CTokenStorage.BorrowSnapshot)"
+          },
+          "t_struct(BorrowSnapshot)5737_storage": {
+            "label": "struct CTokenStorage.BorrowSnapshot",
+            "members": [
+              {
+                "label": "principal",
+                "type": "t_uint256"
+              },
+              {
+                "label": "interestIndex",
+                "type": "t_uint256"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
