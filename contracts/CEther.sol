@@ -1,7 +1,7 @@
 pragma solidity ^0.5.16;
 
 import "./CToken.sol";
-
+import "hardhat/console.sol";
 /**
  * @title Compound's CEther Contract
  * @notice CToken which wraps Ether
@@ -47,8 +47,8 @@ contract CEther is CToken {
     }
 
     /**
-     * @notice Sender redeems cTokens in exchange for the underlying asset
-     * @dev Accrues interest whether or not the operation succeeds, unless reverted
+     * @notice Sender redeems cTokens in exchange for the underlying asset+
+     * @dev Accrues interest whether or not the operation succeeds, unless d+;[reverted
      * @param redeemTokens The number of cTokens to redeem into underlying
      * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
      */

@@ -711,16 +711,17 @@ contract CToken is CTokenInterface, Exponential, TokenErrorReporter {
 
     /**
       * @notice Sender borrows assets from the protocol to their own address
-      * @param borrowAmount The amount of the underlying asset to borrow
+      * @param borrowAmount The amount of the underlying asset to borrow nonReentrant
       * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
       */
-    function borrowInternal(uint borrowAmount) internal nonReentrant returns (uint) {
+    function borrowInternal(uint borrowAmount) internal  returns (uint) {
         uint error = accrueInterest();
         if (error != uint(Error.NO_ERROR)) {
             // accrueInterest emits logs on errors, but we still want to log the fact that an attempted borrow failed
             return fail(Error(error), FailureInfo.BORROW_ACCRUE_INTEREST_FAILED);
         }
         // borrowFresh emits borrow-specific logs on errors, so we don't need to
+        console.log("borrowFresh");
         return borrowFresh(msg.sender, borrowAmount);
     }
 
@@ -742,13 +743,14 @@ contract CToken is CTokenInterface, Exponential, TokenErrorReporter {
         if (allowed != 0) {
             return failOpaque(Error.COMPTROLLER_REJECTION, FailureInfo.BORROW_COMPTROLLER_REJECTION, allowed);
         }
-
+   console.log("allowed");
         /* Verify market's block number equals current block number */
         if (accrualBlockNumber != getBlockNumber()) {
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.BORROW_FRESHNESS_CHECK);
         }
-
+        console.log("accrualBlockNumber");
         /* Fail gracefully if protocol has insufficient underlying cash */
+        console.log("getCashPrior:",getCashPrior());
         if (getCashPrior() < borrowAmount) {
             return fail(Error.TOKEN_INSUFFICIENT_CASH, FailureInfo.BORROW_CASH_NOT_AVAILABLE);
         }
@@ -786,12 +788,12 @@ contract CToken is CTokenInterface, Exponential, TokenErrorReporter {
          *  doTransferOut reverts if anything goes wrong, since we can't be sure if side effects occurred.
          */
         doTransferOut(borrower, borrowAmount);
-
+        console.log("doTransferOut");
         /* We write the previously calculated values into storage */
         accountBorrows[borrower].principal = vars.accountBorrowsNew;
         accountBorrows[borrower].interestIndex = borrowIndex;
         totalBorrows = vars.totalBorrowsNew;
-
+        console.log("totalBorrows:",totalBorrows);
         /* We emit a Borrow event */
         emit Borrow(borrower, borrowAmount, vars.accountBorrowsNew, vars.totalBorrowsNew);
 
@@ -1186,15 +1188,17 @@ contract CToken is CTokenInterface, Exponential, TokenErrorReporter {
         if (msg.sender != admin) {
             return fail(Error.UNAUTHORIZED, FailureInfo.SET_COMPTROLLER_OWNER_CHECK);
         }
-        ComptrollerInterface oldComptroller = comptroller;
+        console.log("_setComptroller...");
 
+        ComptrollerInterface oldComptroller = comptroller;
+        //console.log(newComptroller.isComptroller());
         // Ensure invoke comptroller.isComptroller() returns true
         require(newComptroller.isComptroller(), "marker method returned false");
 
         // Set market's comptroller to newComptroller
         comptroller = newComptroller;
+        console.log("_setComptroller end...");
 
-        // Emit NewComptroller(oldComptroller, newComptroller)
         emit NewComptroller(oldComptroller, newComptroller);
 
         return uint(Error.NO_ERROR);
@@ -1452,6 +1456,7 @@ contract CToken is CTokenInterface, Exponential, TokenErrorReporter {
      * @dev Prevents a contract from calling itself, directly or indirectly.
      */
     modifier nonReentrant() {
+        console.log("nonReentrant",_notEntered);
         require(_notEntered, "re-entered");
         _notEntered = false;
         _;

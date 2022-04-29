@@ -4,19 +4,21 @@ import "./PriceOracle.sol";
 import "./CErc20.sol";
 
 contract SimplePriceOracle is PriceOracle {
-    
+
     address admin;
 
     string baseSymbol;
 
     uint baseTokenPrice;
-    
+
     mapping(address => uint) prices;
 
     event PricePosted(address asset, uint previousPriceMantissa, uint requestedPriceMantissa);
 
-    constructor() public {
+    address cEther;
+    constructor(address _cEther) public {
         admin = msg.sender;
+        cEther = _cEther;
     }
 
     function changeAdmin(address newAdmin) public {
@@ -30,6 +32,9 @@ contract SimplePriceOracle is PriceOracle {
     }
 
     function getUnderlyingPrice(CToken cToken) public view returns (uint) {
+        if (address(cToken) == cEther) {
+            return 1e18;
+        }
         if (compareStrings(cToken.symbol(), baseSymbol)) {
             return baseTokenPrice;
         } else {
